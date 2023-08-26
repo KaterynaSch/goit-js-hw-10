@@ -1,7 +1,8 @@
 import Notiflix from 'notiflix';
 const textLoader = document.querySelector('.loader');
-const error = document.querySelector('.error');
-export function fetchBreeds() {
+const textError = document.querySelector('.error');
+
+export function fetchBreeds() {    
 const params = new URLSearchParams({
     api_key: "live_k56NhF6Fgxd3eB7Cdejwig9QtWhpdwAQAB2B91u4etEu1xiUdYyK77JNLUEqVxxB",
   });
@@ -9,7 +10,7 @@ const params = new URLSearchParams({
     .then((resp) => {
         if (!resp.ok) {
             textLoader.style.display = 'none'
-            throw new Error(Notiflix.Notify.failure(`${error.textContent}`));
+            throw new Error(Notiflix.Notify.failure(`${textError.textContent}`));
             
         }
         return resp.json();
@@ -23,12 +24,11 @@ export function fetchCatByBreed(breedId) {
     breed_ids: breedId
   });
     
-   return fetch(`https://api.thecatapi.com/v1/images/search?${params}`)
-    
+   return fetch(`https://api.thecatapi.com/v1/images/search?${params}`)    
     .then((resp) => {
         if (!resp.ok) {
             textLoader.style.display = 'none'
-            throw new Error(Notiflix.Notify.failure(`${error.textContent}`));
+            throw new Error(Notiflix.Notify.failure(`${textError.textContent}`));
         }        
         return resp.json();
     })
