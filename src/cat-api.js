@@ -1,36 +1,34 @@
 import Notiflix from 'notiflix';
-const textLoader = document.querySelector('.loader');
-const textError = document.querySelector('.error');
 
-export function fetchBreeds() {    
-const params = new URLSearchParams({
-    api_key: "live_k56NhF6Fgxd3eB7Cdejwig9QtWhpdwAQAB2B91u4etEu1xiUdYyK77JNLUEqVxxB",
-  });
-    return fetch(`https://api.thecatapi.com/v1/breeds?${params}`)
+const BASE_URL = 'https://api.thecatapi.com/v1';
+const API_KEY = 'live_k56NhF6Fgxd3eB7Cdejwig9QtWhpdwAQAB2B91u4etEu1xiUdYyK77JNLUEqVxxB';
+
+export function fetchBreeds() {
+
+    const END_POINT = '/breeds';    
+    return fetch(`${BASE_URL}${END_POINT}?${API_KEY}`)
     .then((resp) => {
-        if (!resp.ok) {
-            textLoader.style.display = 'none'
-            throw new Error(Notiflix.Notify.failure(`${textError.textContent}`));
-            
+        if (!resp.ok) {           
+            throw new Error(Notiflix.Notify.failure(`${textError.textContent}`));            
         }
         return resp.json();
     })
 };
 
 export function fetchCatByBreed(breedId) {
-    
+    const END_POINT = '/images/search';
   const params = new URLSearchParams({
     api_key: "live_k56NhF6Fgxd3eB7Cdejwig9QtWhpdwAQAB2B91u4etEu1xiUdYyK77JNLUEqVxxB",
     breed_ids: breedId
   });
     
-   return fetch(`https://api.thecatapi.com/v1/images/search?${params}`)    
+   return fetch(`${BASE_URL}${END_POINT}?${params}`)
     .then((resp) => {
-        if (!resp.ok) {
-            textLoader.style.display = 'none'
+        if (!resp.ok) {            
             throw new Error(Notiflix.Notify.failure(`${textError.textContent}`));
-        }        
+        }
         return resp.json();
     })
 };
+
 
